@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"os"
 	"regexp"
+	"runtime"
+	"strings"
 )
 
 var re = regexp.MustCompile(`(?m)\$env:(.+) = "(.*)"`)
@@ -13,7 +15,7 @@ func main() {
 	in := bufio.NewScanner(os.Stdin)
 	out := json.NewEncoder(os.Stdout)
 
-	table := map[string]string{}
+	table := map[string]interface{}{}
 
 	for in.Scan() {
 		line := in.Text()
@@ -22,7 +24,15 @@ func main() {
 		key := matches[1]
 		value := matches[2]
 
-		table[key] = value
+		if strings.ToLower(key) == "path" {
+			pathkey := "Path"
+			if runtime.GOOS == "darwin" || runtime.GOOS == "linux" {
+				pathkey = "PATH"
+			}
+			table[pathkey] = strings.Split(matches[2], ";")
+		} else {
+			table[key] = value
+		}
 	}
 
 	out.Encode(table)
