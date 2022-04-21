@@ -7,7 +7,7 @@ import (
 	"regexp"
 )
 
-var re = regexp.MustCompile(`(?m)\$env:(.+) = (.+)`)
+var re = regexp.MustCompile(`(?m)\$env:(.+) = "(.*)"`)
 
 func main() {
 	in := bufio.NewScanner(os.Stdin)
