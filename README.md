@@ -15,7 +15,7 @@ go install github.com/Southclaws/fnm-nushell@latest
 Load into shell:
 
 ```
-fnm env --shell powershell | fnm-nushell | from json | load-env
+fnm env --shell power-shell | fnm-nushell | from json | load-env
 ```
 
 Breakdown:
@@ -23,24 +23,24 @@ Breakdown:
 1. we use powershell because it's the easiest to parse without surprises
 
 ```
-fnm env --shell powershell
+fnm env --shell power-shell
 ```
 
 2. fnm-nushell just turns this into JSON
 
 ```
-fnm env --shell powershell | fnm-nushell
+fnm env --shell power-shell | fnm-nushell
 ```
 
 3. turn that json into a nushell table
 
 ```
-fnm env --shell powershell | fnm-nushell | from json
+fnm env --shell power-shell | fnm-nushell | from json
 ```
 
 4. load that data table as env vars
 
 ```
-fnm env --shell powershell | fnm-nushell | from json | load-env
+fnm env --shell power-shell | fnm-nushell | from json | load-env
 ```
 
